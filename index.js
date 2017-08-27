@@ -129,7 +129,7 @@ function parseInput(rplyToken, inputStr) {
       }
     else if (inputStr.match('321') != null) {
         //replyStkToLine(rplyToken);
-        return LCS.Interface.getProfile.displayName;
+        return getProfile.displayName;
       }
       
      //   else 
