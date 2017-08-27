@@ -167,8 +167,8 @@ function replyImgToLine(rplyToken) {
         //type: "text",
         //text: rplyVal
         type: "image",
-        originalContentUrl: "https://www.dropbox.com/s/a76eakk5yqf2qsy/241760.jpg?dl=1",
-        previewImageUrl: "https://www.dropbox.com/s/a76eakk5yqf2qsy/241760.jpg?dl=1"
+        originalContentUrl: "https://dl.getdropbox.com/s/a76eakk5yqf2qsy/241760.jpg",
+        previewImageUrl: "https://dl.getdropbox.com/s/a76eakk5yqf2qsy/241760.jpg"
       }
     ]
   }
