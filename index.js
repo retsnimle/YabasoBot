@@ -129,17 +129,17 @@ function parseInput(rplyToken, inputStr, rplyID) {
          return isNaN(parseInt(obj));
         }
  
-      if (inputStr.match('123') != null) {
+      if (inputStr.match('貼圖') != null) {
         let rplyArr = inputStr.split(' ');
         replyStkToLine(rplyToken, rplyArr[1], rplyArr[2]);
         return undefined;
       }
-    else if (inputStr.match('321') != null) {
+    else if (inputStr.match('ID') != null) {
         //replyStkToLine(rplyToken);
         //return LCS.Interface.getLCSVersion();
         return rplyID;
       }
-     else if (inputStr.match('555') != null) {
+     else if (inputStr.match('圖片') != null) {
          replyImgToLine(rplyToken);
          return undefined;
         //replyStkToLine(rplyToken);
@@ -154,7 +154,7 @@ function parseInput(rplyToken, inputStr, rplyID) {
      //     replyToLine(rplyToken, 0, sticker, rplyArr[1], rplyArr[2]);
      //     return undefined;        
     //    }
-      else return inputStr;
+      else return undefined;
         
       }
 
