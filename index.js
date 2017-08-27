@@ -135,7 +135,7 @@ function parseInput(rplyToken, inputStr, rplyID) {
       }
      else if (inputStr.match('555') != null) {
         //replyStkToLine(rplyToken);
-        return LCS.Interface.getLCSVersion(rplyID).body.getDisplayName();
+        return  LineMessagingServiceBuilder.getProfile(rplyID).body.getDisplayName();
         //return rplyID;
       }
      //   else 
