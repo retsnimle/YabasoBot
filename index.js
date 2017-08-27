@@ -99,74 +99,8 @@ function parseInput(rplyToken, inputStr) {
      //     replyToLine(rplyToken, 0, sticker, rplyArr[1], rplyArr[2]);
      //     return undefined;        
     //    }
-        
-     //cc判定在此
-     //   if (inputStr.toLowerCase().match(/^cc/)!= null) return CoC7th(inputStr.toLowerCase()) ;      
-     //   else
-        //入幫測驗判定在此
-     //   if (inputStr.match('鴨霸幫入幫測驗') != null) return Yababang(inputStr) ;      
-     //   else
-        //pbta判定在此
-     //   if (inputStr.toLowerCase().match(/^pb/)!= null) return pbta(inputStr.toLowerCase()) ;      
-     //   else
-        //擲骰判定在此        
-     //   if (inputStr.match(/\w/)!=null && inputStr.toLowerCase().match(/d/)!=null) {
-     //     return nomalDiceRoller(inputStr);
-        }
-     //   else
-        //鴨霸獸指令開始於此
-     //   if (inputStr.match('鴨霸獸') != null) return YabasoReply(inputStr) ;
-        //else 
 return inputStr;
         
       }
 
-      
-  //測試由此開始
-function replyToLine(rplyToken, rplyVal, rplyType, value1, value2) {
 
-  if (rplyType==text){
-    let rplyObj = {
-     replyToken: rplyToken,
-     messages: [
-        {
-         type: "text",
-         text: rplyVal
-         //type: "sticker",
-         //packageId: "1",
-         //stickerId: "1"
-       }
-     ]
-    }
-   }
-  
-  if (rplyType==sticker){
-    let rplyObj = {
-     replyToken: rplyToken,
-     messages: [
-        {
-         //type: "text",
-         //text: rplyVal
-         type: "sticker",
-         packageId: value1,
-         stickerId: value2
-       }
-     ]
-    }
-   }
-
-  let rplyJson = JSON.stringify(rplyObj); 
-  
-  var request = https.request(options, function(response) {
-    console.log('Status: ' + response.statusCode);
-    console.log('Headers: ' + JSON.stringify(response.headers));
-    response.setEncoding('utf8');
-    response.on('data', function(body) {
-      console.log(body); 
-    });
-  });
-  request.on('error', function(e) {
-    console.log('Request error: ' + e.message);
-  })
-  request.end(rplyJson);
-}
