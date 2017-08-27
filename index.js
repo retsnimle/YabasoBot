@@ -115,7 +115,7 @@ function SendMsg(rplyToken, rplyVal) {
   request.on('error', function(e) {
     console.log('Request error: ' + e.message);
   })
-  request.(rplyJson);
+  request(rplyJson);
 }
 
 function replyStkToLine(rplyToken, value1, value2) {
