@@ -129,7 +129,7 @@ function parseInput(rplyToken, inputStr) {
       }
     else if (inputStr.match('321') != null) {
         //replyStkToLine(rplyToken);
-        return event.message.text;
+        return req.body.events[0].message.text;
       }
       
      //   else 
