@@ -122,8 +122,7 @@ function parseInput(rplyToken, inputStr) {
         _isNaN = function(obj) {
          return isNaN(parseInt(obj));
         }
-        replyStkToLine(rplyToken);
-  
+ 
       if (inputStr.match('123') != null) {
         replyStkToLine(rplyToken);
         return undefined;
