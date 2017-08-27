@@ -88,6 +88,36 @@ function replyMsgToLine(rplyToken, rplyVal) {
   request.end(rplyJson);
 }
 
+function SendMsg(rplyToken, rplyVal) {
+  let rplyObj = {
+    replyToken: rplyToken,
+    messages: [
+      {
+        type: "text",
+        text: rplyVal
+        //type: "sticker",
+        //packageId: "1",
+        //stickerId: "1"
+      }
+    ]
+  }
+
+  let rplyJson = JSON.stringify(rplyObj); 
+  
+  var request = https.request(options, function(response) {
+    console.log('Status: ' + response.statusCode);
+    console.log('Headers: ' + JSON.stringify(response.headers));
+    response.setEncoding('utf8');
+    response.on('data', function(body) {
+      console.log(body); 
+    });
+  });
+  request.on('error', function(e) {
+    console.log('Request error: ' + e.message);
+  })
+  request.(rplyJson);
+}
+
 function replyStkToLine(rplyToken, value1, value2) {
   if (value1 == null || value2 == null){
     value1 = 1;
@@ -131,6 +161,7 @@ function parseInput(rplyToken, inputStr, rplyID) {
  
       if (inputStr.match('貼圖') != null) {
         let rplyArr = inputStr.split(' ');
+        SendMsg(rplyToken, inputStr);
         replyStkToLine(rplyToken, rplyArr[1], rplyArr[2]);
         return undefined;
       }
@@ -167,8 +198,8 @@ function replyImgToLine(rplyToken) {
         //type: "text",
         //text: rplyVal
         type: "image",
-        originalContentUrl: "https://dl.getdropbox.com/s/a76eakk5yqf2qsy/241760.jpg",
-        previewImageUrl: "https://dl.getdropbox.com/s/a76eakk5yqf2qsy/241760.jpg"
+        originalContentUrl: "https://scdn.line-apps.com/n/_5/partner-center/img/lp/msgapi-icon.png",
+        previewImageUrl: "https://scdn.line-apps.com/n/_5/partner-center/img/lp/msgapi-icon.png"
       }
     ]
   }
