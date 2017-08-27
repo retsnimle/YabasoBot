@@ -88,7 +88,12 @@ function replyMsgToLine(rplyToken, rplyVal) {
   request.end(rplyJson);
 }
 
-function replyStkToLine(rplyToken) {
+function replyStkToLine(rplyToken, value1, value2) {
+  if (value1 == null || value2 == null){
+    value1 = 1;
+    value2 = 1;
+  }
+  
   let rplyObj = {
     replyToken: rplyToken,
     messages: [
@@ -96,8 +101,8 @@ function replyStkToLine(rplyToken) {
         //type: "text",
         //text: rplyVal
         type: "sticker",
-        packageId: "1",
-        stickerId: "1"
+        packageId: value1,
+        stickerId: value2
       }
     ]
   }
@@ -125,7 +130,8 @@ function parseInput(rplyToken, inputStr, rplyID) {
         }
  
       if (inputStr.match('123') != null) {
-        replyStkToLine(rplyToken);
+        let rplyArr = inputStr.split(' ');
+        replyStkToLine(rplyToken, rplyArr[1], rplyArr[2]);
         return undefined;
       }
     else if (inputStr.match('321') != null) {
@@ -135,7 +141,9 @@ function parseInput(rplyToken, inputStr, rplyID) {
       }
      else if (inputStr.match('555') != null) {
         //replyStkToLine(rplyToken);
-        return  LineMessagingServiceBuilder.getProfile(rplyID).body.getDisplayName();
+        let response = LineMessagingServiceBuilder.getProfile(rplyID);
+        let profile = response.body();
+        return profile.getDisplayName();
         //return rplyID;
       }
      //   else 
