@@ -92,7 +92,7 @@ function parseInput(rplyToken, inputStr) {
         _isNaN = function(obj) {
          return isNaN(parseInt(obj));
         }
-        if (inputStr.match('test') != null) return "Good" ;
+        //if (inputStr.match('test') != null) return "Good" ;
      //   else 
       //  if (inputStr.match('sticker') != null) {
      //     let rplyArr = inputStr.split(' ');
@@ -116,7 +116,8 @@ function parseInput(rplyToken, inputStr) {
      //   else
         //鴨霸獸指令開始於此
      //   if (inputStr.match('鴨霸獸') != null) return YabasoReply(inputStr) ;
-        else return undefined;
+        //else 
+return inputStr;
         
       }
 
