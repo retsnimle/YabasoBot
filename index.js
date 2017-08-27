@@ -30,7 +30,7 @@ app.post('/', jsonParser, function(req, res) {
   let msgType = event.message.type;
   let msg = event.message.text;
   let rplyToken = event.replyToken;
-  let rplyID = event.userId;
+  let rplyID = event.source.userId;
 
   let rplyVal = null;
   console.log(msg);
