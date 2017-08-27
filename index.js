@@ -60,8 +60,11 @@ function replyMsgToLine(rplyToken, rplyVal) {
     replyToken: rplyToken,
     messages: [
       {
-        type: "text",
-        text: rplyVal
+        //type: "text",
+        //text: rplyVal
+        type: "sticker",
+        packageId: "1",
+        stickerId: "1"
       }
     ]
   }
