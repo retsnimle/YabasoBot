@@ -124,14 +124,14 @@ function parseInput(rplyToken, inputStr) {
         }
         replyStkToLine(rplyToken);
   
-        //if (inputStr.match('test') != null) return "Good" ;
+      if (inputStr.match('123') != null) replyStkToLine(rplyToken);
      //   else 
       //  if (inputStr.match('sticker') != null) {
      //     let rplyArr = inputStr.split(' ');
      //     replyToLine(rplyToken, 0, sticker, rplyArr[1], rplyArr[2]);
      //     return undefined;        
     //    }
-return inputStr;
+      else return inputStr;
         
       }
 
