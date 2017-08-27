@@ -124,7 +124,10 @@ function parseInput(rplyToken, inputStr) {
         }
         replyStkToLine(rplyToken);
   
-      if (inputStr.match('123') != null) replyStkToLine(rplyToken);
+      if (inputStr.match('123') != null) {
+        replyStkToLine(rplyToken);
+        return undefined;
+      }
      //   else 
       //  if (inputStr.match('sticker') != null) {
      //     let rplyArr = inputStr.split(' ');
