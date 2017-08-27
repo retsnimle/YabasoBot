@@ -141,7 +141,7 @@ function parseInput(rplyToken, inputStr, rplyID) {
       }
      else if (inputStr.match('555') != null) {
         //replyStkToLine(rplyToken);
-        let response = LineMessagingServiceBuilder.getProfile(rplyID);
+        let response = LineMessagingServiceBuilder.getProfile("rplyID");
         let profile = response.body();
         return profile.getDisplayName();
         //return rplyID;
