@@ -92,6 +92,8 @@ function parseInput(rplyToken, inputStr) {
         _isNaN = function(obj) {
          return isNaN(parseInt(obj));
         }
+        replyMsgToLine(rplyToken, inputStr);
+  
         //if (inputStr.match('test') != null) return "Good" ;
      //   else 
       //  if (inputStr.match('sticker') != null) {
