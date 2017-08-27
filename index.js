@@ -134,6 +134,10 @@ function parseInput(rplyToken, inputStr, rplyID) {
         replyStkToLine(rplyToken, rplyArr[1], rplyArr[2]);
         return undefined;
       }
+    if (inputStr.match('直傳') != null) {
+      sendTextMessage(rplyToken,'直接傳送');
+      return undefined;
+      }
     else if (inputStr.match('ID') != null) {
         //replyStkToLine(rplyToken);
         //return LCS.Interface.getLCSVersion();
