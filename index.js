@@ -95,9 +95,6 @@ function SendMsg(rplyToken, rplyVal) {
       {
         type: "text",
         text: rplyVal
-        //type: "sticker",
-        //packageId: "1",
-        //stickerId: "1"
       }
     ]
   }
@@ -150,7 +147,7 @@ function replyStkToLine(rplyToken, value1, value2) {
   request.on('error', function(e) {
     console.log('Request error: ' + e.message);
   })
-  request.end(rplyJson);
+  request(rplyJson);
 }
 
 function parseInput(rplyToken, inputStr, rplyID) {
@@ -217,6 +214,6 @@ function replyImgToLine(rplyToken) {
   request.on('error', function(e) {
     console.log('Request error: ' + e.message);
   })
-  request.end(rplyJson);
+  request(rplyJson);
 }
 
