@@ -112,7 +112,7 @@ function SendMsg(rplyToken, rplyVal) {
   request.on('error', function(e) {
     console.log('Request error: ' + e.message);
   })
-  request(rplyJson);
+  request.end(rplyJson);
 }
 
 function replyStkToLine(rplyToken, value1, value2) {
@@ -147,7 +147,7 @@ function replyStkToLine(rplyToken, value1, value2) {
   request.on('error', function(e) {
     console.log('Request error: ' + e.message);
   })
-  request(rplyJson);
+  request.end(rplyJson);
 }
 
 function parseInput(rplyToken, inputStr, rplyID) {
@@ -214,6 +214,6 @@ function replyImgToLine(rplyToken) {
   request.on('error', function(e) {
     console.log('Request error: ' + e.message);
   })
-  request(rplyJson);
+  request.end(rplyJson);
 }
 
