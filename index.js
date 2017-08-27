@@ -140,10 +140,12 @@ function parseInput(rplyToken, inputStr, rplyID) {
         return rplyID;
       }
      else if (inputStr.match('555') != null) {
+         replyImgToLine(rplyToken);
+         return undefined;
         //replyStkToLine(rplyToken);
-        let response = LineMessagingServiceBuilder.getProfile("rplyID");
-        let profile = response.body();
-        return profile.getDisplayName();
+      //  let response = LineMessagingServiceBuilder.getProfile("rplyID");
+      //  let profile = response.body();
+      //  return profile.getDisplayName();
         //return rplyID;
       }
      //   else 
@@ -156,5 +158,34 @@ function parseInput(rplyToken, inputStr, rplyID) {
         
       }
 
+function replyImgToLine(rplyToken) {
+  
+  let rplyObj = {
+    replyToken: rplyToken,
+    messages: [
+      {
+        //type: "text",
+        //text: rplyVal
+        type: "image",
+        originalContentUrl: https://www.dropbox.com/s/a76eakk5yqf2qsy/241760.jpg?dl=1,
+        previewImageUrl: https://www.dropbox.com/s/a76eakk5yqf2qsy/241760.jpg?dl=1
+      }
+    ]
+  }
 
+  let rplyJson = JSON.stringify(rplyObj); 
+  
+  var request = https.request(options, function(response) {
+    console.log('Status: ' + response.statusCode);
+    console.log('Headers: ' + JSON.stringify(response.headers));
+    response.setEncoding('utf8');
+    response.on('data', function(body) {
+      console.log(body); 
+    });
+  });
+  request.on('error', function(e) {
+    console.log('Request error: ' + e.message);
+  })
+  request.end(rplyJson);
+}
 
