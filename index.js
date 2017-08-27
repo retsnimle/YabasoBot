@@ -30,12 +30,13 @@ app.post('/', jsonParser, function(req, res) {
   let msgType = event.message.type;
   let msg = event.message.text;
   let rplyToken = event.replyToken;
+  let rplyID = event.userId;
 
   let rplyVal = null;
   console.log(msg);
   if (type == 'message' && msgType == 'text') {
     try {
-      rplyVal = parseInput(rplyToken, msg); 
+      rplyVal = parseInput(rplyToken, msg, rplyID); 
     } 
     catch(e) {
       rplyVal = randomReply();
@@ -117,7 +118,7 @@ function replyStkToLine(rplyToken) {
   request.end(rplyJson);
 }
 
-function parseInput(rplyToken, inputStr) {
+function parseInput(rplyToken, inputStr, rplyID) {
         console.log('InputStr: ' + inputStr);
         _isNaN = function(obj) {
          return isNaN(parseInt(obj));
@@ -129,7 +130,8 @@ function parseInput(rplyToken, inputStr) {
       }
     else if (inputStr.match('321') != null) {
         //replyStkToLine(rplyToken);
-        return LCS.Interface.getLCSVersion();
+        //return LCS.Interface.getLCSVersion();
+        return rplyID;
       }
       
      //   else 
