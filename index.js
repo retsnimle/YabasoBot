@@ -137,7 +137,7 @@ function parseInput(rplyToken, inputStr, rplyID) {
     else if (inputStr.match('ID') != null) {
         //replyStkToLine(rplyToken);
         //return LCS.Interface.getLCSVersion();
-        return rplyID;
+        return GetUserInfo(rplyID).displayName;
       }
      else if (inputStr.match('圖片') != null) {
          replyImgToLine(rplyToken);
