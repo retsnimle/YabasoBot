@@ -127,6 +127,11 @@ function parseInput(rplyToken, inputStr) {
         replyStkToLine(rplyToken);
         return undefined;
       }
+    else if (inputStr.match('321') != null) {
+        //replyStkToLine(rplyToken);
+        return event.message.text;
+      }
+      
      //   else 
       //  if (inputStr.match('sticker') != null) {
      //     let rplyArr = inputStr.split(' ');
