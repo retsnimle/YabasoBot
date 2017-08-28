@@ -65,9 +65,6 @@ function replyMsgToLine(rplyToken, rplyVal) {
       {
         type: "text",
         text: rplyVal
-        //type: "sticker",
-        //packageId: "1",
-        //stickerId: "1"
       }
     ]
   }
@@ -91,19 +88,7 @@ function replyMsgToLine(rplyToken, rplyVal) {
 function SendMsg(rplyToken, rplyVal) {
   let rplyObj = {
     replyToken: rplyToken,
-    messages: [
-      {
-        type: "text",
-        text: rplyVal
-      }, 
-      {
-        type: "text",
-        text: 'hello'
-      }, 
-      {
-        type: "text",
-        text: 'test'
-      }
+    messages: rplyVal
     ]
   }
 
@@ -169,10 +154,13 @@ function parseInput(rplyToken, inputStr, rplyID) {
         replyStkToLine(rplyToken, rplyArr[1], rplyArr[2]);
         return undefined;
       }
-    else if (inputStr.match('test') != null) {
+    else if (inputStr.match('複數') != null) {
         //SendMsg(rplyToken, inputStr);
-        let userProfile = getUserProfile(event.getSource().getUserId());
-        return userProfile.getDisplayName();
+        //let userProfile = getUserProfile(event.getSource().getUserId());
+        //return userProfile.getDisplayName();
+        let messages: [{type: "text", text:'複數測試'}, {type: "text", text: 'hello'}, {type: "text", text: 'test'}]
+        SendMsg(rplyToken, messages);
+        return undefined;
       }
      else if (inputStr.match('圖片') != null) {
          replyImgToLine(rplyToken);
