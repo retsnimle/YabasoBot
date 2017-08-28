@@ -97,8 +97,6 @@ function replyStkToLine(rplyToken, value1, value2) {
     replyToken: rplyToken,
     messages: [
       {
-        //type: "text",
-        //text: rplyVal
         type: "sticker",
         packageId: value1,
         stickerId: value2
@@ -134,24 +132,7 @@ function parseInput(rplyToken, inputStr, rplyID) {
         return undefined;
       }
     else if (inputStr.match('複數') != null) {
-        //SendMsg(rplyToken, inputStr);
-        //let userProfile = getUserProfile(event.getSource().getUserId());
-        //return userProfile.getDisplayName();
-        //let messages = [{type: "text", text:'複數測試'}, {type: "text", text: 'hello'}, {type: "text", text: 'test'}]
-         let rplyVal = [
-      {
-        type: "text",
-        text:'複數測試'
-      }, 
-      {
-        type: "text", 
-        text: 'hello'
-      }, 
-      {
-        type: "text", 
-        text: 'test'
-      }
-     ]
+         let rplyVal = [{type: "text",text:'複數測試'}, {type: "text", text: 'hello'}, {type: "text", text: 'test'}]
       
          SendMsg(rplyToken, rplyVal);
          return undefined;
