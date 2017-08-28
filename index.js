@@ -95,6 +95,14 @@ function SendMsg(rplyToken, rplyVal) {
       {
         type: "text",
         text: rplyVal
+      }, 
+      {
+        type: "text",
+        text: 'hello'
+      }, 
+      {
+        type: "text",
+        text: 'test'
       }
     ]
   }
@@ -158,14 +166,12 @@ function parseInput(rplyToken, inputStr, rplyID) {
  
       if (inputStr.match('貼圖') != null) {
         let rplyArr = inputStr.split(' ');
-        SendMsg(rplyToken, inputStr);
         replyStkToLine(rplyToken, rplyArr[1], rplyArr[2]);
         return undefined;
       }
-    else if (inputStr.match('ID') != null) {
-        //replyStkToLine(rplyToken);
-        //return LCS.Interface.getLCSVersion();
-        return GetUserInfo(rplyID).displayName;
+    else if (inputStr.match('test') != null) {
+        SendMsg(rplyToken, inputStr);
+        return undefined;
       }
      else if (inputStr.match('圖片') != null) {
          replyImgToLine(rplyToken);
