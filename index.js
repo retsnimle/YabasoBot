@@ -138,7 +138,22 @@ function parseInput(rplyToken, inputStr, rplyID) {
         //let userProfile = getUserProfile(event.getSource().getUserId());
         //return userProfile.getDisplayName();
         //let messages = [{type: "text", text:'複數測試'}, {type: "text", text: 'hello'}, {type: "text", text: 'test'}]
-         SendMsg(rplyToken);
+         let rplyVal = [
+      {
+        type: "text",
+        text:'複數測試'
+      }, 
+      {
+        type: "text", 
+        text: 'hello'
+      }, 
+      {
+        type: "text", 
+        text: 'test'
+      }
+     ]
+      
+         SendMsg(rplyToken, rplyVal);
          return undefined;
       }
      else if (inputStr.match('圖片') != null) {
@@ -191,23 +206,10 @@ function replyImgToLine(rplyToken) {
   request.end(rplyJson);
 }
 
-function SendMsg(rplyToken) {
+function SendMsg(rplyToken, rplyVal) {
   let rplyObj = {
     replyToken: rplyToken,
-    messages: [
-      {
-        type: "text",
-        text:'複數測試'
-      }, 
-      {
-        type: "text", 
-        text: 'hello'
-      }, 
-      {
-        type: "text", 
-        text: 'test'
-      }
-     ]
+    messages: rplyVal
   }
 
   let rplyJson = JSON.stringify(rplyObj); 
