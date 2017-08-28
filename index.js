@@ -138,8 +138,8 @@ function parseInput(rplyToken, inputStr, rplyID) {
         //let userProfile = getUserProfile(event.getSource().getUserId());
         //return userProfile.getDisplayName();
         //let messages = [{type: "text", text:'複數測試'}, {type: "text", text: 'hello'}, {type: "text", text: 'test'}]
-        //SendMsg(rplyToken);
-        return undefined;
+         SendMsg(rplyToken);
+         return undefined;
       }
      else if (inputStr.match('圖片') != null) {
          replyImgToLine(rplyToken);
@@ -173,6 +173,41 @@ function replyImgToLine(rplyToken) {
         previewImageUrl: "https://i.imgur.com/J5KkK6t.png"
       }
     ]
+  }
+
+  let rplyJson = JSON.stringify(rplyObj); 
+  
+  var request = https.request(options, function(response) {
+    console.log('Status: ' + response.statusCode);
+    console.log('Headers: ' + JSON.stringify(response.headers));
+    response.setEncoding('utf8');
+    response.on('data', function(body) {
+      console.log(body); 
+    });
+  });
+  request.on('error', function(e) {
+    console.log('Request error: ' + e.message);
+  })
+  request.end(rplyJson);
+}
+
+function SendMsg(rplyToken) {
+  let rplyObj = {
+    replyToken: rplyToken,
+    messages: [
+      {
+        type: "text",
+        text:'複數測試'
+      }, 
+      {
+        type: "text", 
+        text: 'hello'
+      }, 
+      {
+        type: "text", 
+        text: 'test'
+      }
+     ]
   }
 
   let rplyJson = JSON.stringify(rplyObj); 
