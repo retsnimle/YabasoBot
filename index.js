@@ -158,7 +158,7 @@ function parseInput(rplyToken, inputStr, rplyID) {
         //SendMsg(rplyToken, inputStr);
         //let userProfile = getUserProfile(event.getSource().getUserId());
         //return userProfile.getDisplayName();
-        let messages: [{type: "text", text:'複數測試'}, {type: "text", text: 'hello'}, {type: "text", text: 'test'}]
+        let messages = [{type: "text", text:'複數測試'}, {type: "text", text: 'hello'}, {type: "text", text: 'test'}]
         SendMsg(rplyToken, messages);
         return undefined;
       }
