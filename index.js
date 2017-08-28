@@ -201,8 +201,8 @@ function replyImgToLine(rplyToken) {
         //type: "text",
         //text: rplyVal
         type: "image",
-        originalContentUrl: "http://i.imgur.com/J5KkK6t.png",
-        previewImageUrl: "http://i.imgur.com/J5KkK6t.png"
+        originalContentUrl: "https://i.imgur.com/J5KkK6t.png",
+        previewImageUrl: "https://i.imgur.com/J5KkK6t.png"
       }
     ]
   }
