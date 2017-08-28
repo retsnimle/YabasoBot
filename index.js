@@ -128,64 +128,31 @@ function parseInput(rplyToken, inputStr, rplyID) {
  
       if (inputStr.match('貼圖') != null) {
         let rplyArr = inputStr.split(' ');
-        replyStkToLine(rplyToken, rplyArr[1], rplyArr[2]);
+        let v1 = rplyArr[1];
+        let v2 = rplyArr[2];
+        if (v1 == null||v2 == null){
+          v1=1;
+          v2=1;
+        }
+        let rplyVal = [{type: "sticker", packageId: v1, stickerId: v2}]
+        SendMsg(rplyToken, rplyVal);
         return undefined;
       }
     else if (inputStr.match('複數') != null) {
          let rplyVal = [{type: "text",text:'複數測試'}, {type: "text", text: 'hello'}, {type: "text", text: 'test'}]
-      
          SendMsg(rplyToken, rplyVal);
          return undefined;
       }
      else if (inputStr.match('圖片') != null) {
-         replyImgToLine(rplyToken);
+         let rplyVal = [{type: "image", originalContentUrl: "https://i.imgur.com/J5KkK6t.png", previewImageUrl: "https://i.imgur.com/J5KkK6t.png"}]
+         SendMsg(rplyToken, rplyVal);
          return undefined;
-        //replyStkToLine(rplyToken);
-      //  let response = LineMessagingServiceBuilder.getProfile("rplyID");
-      //  let profile = response.body();
-      //  return profile.getDisplayName();
-        //return rplyID;
       }
-     //   else 
-      //  if (inputStr.match('sticker') != null) {
-     //     let rplyArr = inputStr.split(' ');
-     //     replyToLine(rplyToken, 0, sticker, rplyArr[1], rplyArr[2]);
-     //     return undefined;        
-    //    }
+
       else return undefined;
         
       }
 //======================================================================================================
-function replyImgToLine(rplyToken) {
-  
-  let rplyObj = {
-    replyToken: rplyToken,
-    messages: [
-      {
-        //type: "text",
-        //text: rplyVal
-        type: "image",
-        originalContentUrl: "https://i.imgur.com/J5KkK6t.png",
-        previewImageUrl: "https://i.imgur.com/J5KkK6t.png"
-      }
-    ]
-  }
-
-  let rplyJson = JSON.stringify(rplyObj); 
-  
-  var request = https.request(options, function(response) {
-    console.log('Status: ' + response.statusCode);
-    console.log('Headers: ' + JSON.stringify(response.headers));
-    response.setEncoding('utf8');
-    response.on('data', function(body) {
-      console.log(body); 
-    });
-  });
-  request.on('error', function(e) {
-    console.log('Request error: ' + e.message);
-  })
-  request.end(rplyJson);
-}
 
 function SendMsg(rplyToken, rplyVal) {
   let rplyObj = {
