@@ -170,8 +170,9 @@ function parseInput(rplyToken, inputStr, rplyID) {
         return undefined;
       }
     else if (inputStr.match('test') != null) {
-        SendMsg(rplyToken, inputStr);
-        return undefined;
+        //SendMsg(rplyToken, inputStr);
+        UserProfileResponse userProfile = getUserProfile(event.getSource().getUserId());
+        return userProfile.getDisplayName();
       }
      else if (inputStr.match('圖片') != null) {
          replyImgToLine(rplyToken);
