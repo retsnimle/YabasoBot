@@ -57,7 +57,7 @@ app.listen(app.get('port'), function() {
 });
 
 
-
+//======================================================================================================
 function replyMsgToLine(rplyToken, rplyVal) {
   let rplyObj = {
     replyToken: rplyToken,
@@ -84,30 +84,9 @@ function replyMsgToLine(rplyToken, rplyVal) {
   })
   request.end(rplyJson);
 }
+//======================================================================================================
 
-function SendMsg(rplyToken) {
-  let rplyObj = {
-    replyToken: rplyToken,
-    messages: [{type: "text", text:'複數測試'}, {type: "text", text: 'hello'}, {type: "text", text: 'test'}]
-    ]
-  }
-
-  let rplyJson = JSON.stringify(rplyObj); 
-  
-  var request = https.request(options, function(response) {
-    console.log('Status: ' + response.statusCode);
-    console.log('Headers: ' + JSON.stringify(response.headers));
-    response.setEncoding('utf8');
-    response.on('data', function(body) {
-      console.log(body); 
-    });
-  });
-  request.on('error', function(e) {
-    console.log('Request error: ' + e.message);
-  })
-  request.end(rplyJson);
-}
-
+//======================================================================================================
 function replyStkToLine(rplyToken, value1, value2) {
   if (value1 == null || value2 == null){
     value1 = 1;
@@ -142,7 +121,7 @@ function replyStkToLine(rplyToken, value1, value2) {
   })
   request.end(rplyJson);
 }
-
+//======================================================================================================
 function parseInput(rplyToken, inputStr, rplyID) {
         console.log('InputStr: ' + inputStr);
         _isNaN = function(obj) {
@@ -159,7 +138,7 @@ function parseInput(rplyToken, inputStr, rplyID) {
         //let userProfile = getUserProfile(event.getSource().getUserId());
         //return userProfile.getDisplayName();
         //let messages = [{type: "text", text:'複數測試'}, {type: "text", text: 'hello'}, {type: "text", text: 'test'}]
-        SendMsg(rplyToken);
+        //SendMsg(rplyToken);
         return undefined;
       }
      else if (inputStr.match('圖片') != null) {
@@ -180,7 +159,7 @@ function parseInput(rplyToken, inputStr, rplyID) {
       else return undefined;
         
       }
-
+//======================================================================================================
 function replyImgToLine(rplyToken) {
   
   let rplyObj = {
