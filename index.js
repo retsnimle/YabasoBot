@@ -171,7 +171,7 @@ function parseInput(rplyToken, inputStr, rplyID) {
       }
     else if (inputStr.match('test') != null) {
         //SendMsg(rplyToken, inputStr);
-        UserProfileResponse userProfile = getUserProfile(event.getSource().getUserId());
+        let userProfile = getUserProfile(event.getSource().getUserId());
         return userProfile.getDisplayName();
       }
      else if (inputStr.match('圖片') != null) {
