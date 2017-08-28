@@ -201,8 +201,8 @@ function replyImgToLine(rplyToken) {
         //type: "text",
         //text: rplyVal
         type: "image",
-        originalContentUrl: "https://scdn.line-apps.com/n/_5/partner-center/img/lp/msgapi-icon.png",
-        previewImageUrl: "https://scdn.line-apps.com/n/_5/partner-center/img/lp/msgapi-icon.png"
+        originalContentUrl: "http://i.imgur.com/J5KkK6t.png",
+        previewImageUrl: "http://i.imgur.com/J5KkK6t.png"
       }
     ]
   }
