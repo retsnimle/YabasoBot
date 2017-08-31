@@ -710,10 +710,6 @@ function CoC7th(inputStr){
 }
 
 
-
-
-
-
 function YabasoReply(inputStr) { 
   //一般功能說明
   if (inputStr.match('說明') != null) return YabasoReply('0') + '\
@@ -734,8 +730,9 @@ function YabasoReply(inputStr) {
   if (inputStr.match('垃圾話') != null) return '\
 嗚呵呵呵呵，我就知道你們人類沒辦法抗拒垃圾話的。\
 \n目前實裝的垃圾話功能是以下這些：\
-\n\n【運勢】：你只要提到我的名字和運勢，我就會回答你的運勢。 \
-\n【隨機選擇】：只要提到我的名字和[選、挑、決定]，然後空一格打選項。 \
+\n運勢：你只要提到我的名字和運勢，我就會回答你的運勢。 \
+\n==\
+\n隨機選擇：只要提到我的名字和[選、挑、決定]，然後空一格打選項。 \
 記得選項之間也要用空格隔開，我就會幫選擇障礙的你挑一個。\
 \n \
 \n看起來很實用對不對～那為什麼會叫做垃圾話呢？\
@@ -768,15 +765,20 @@ function YabasoReply(inputStr) {
     
     if (rplyArr.length == 1) return '靠腰喔要我選也把選項格式打好好不好，真的想被淨灘嗎？';
     
-    let Answer = return rplyArr[Dice(rplyArr.length)-1];
+    let Answer = rplyArr[Math.floor((Math.random() * (rplyArr.length-1))+ 1)];
     if(Answer.match('選') != null||Answer.match('決定') != null||Answer.match('挑') != null||Answer.match('鴨霸獸') != null) {
-      rplyArr = ['幹，你不會自己決定嗎', '人生是掌握在自己手裡的', '隨便哪個都好啦', '連這種東西都不能決定，是不是不太應該啊', '沒事別叫我選東西好嗎，難道你們都是天秤座嗎（戰）', '不要把這種東西交給機器人決定比較好吧'];
-      Answer = return rplyArr[Dice(rplyArr.length)-1];
+      rplyArr = ['幹，你不會自己決定嗎',
+                 '人生是掌握在自己手裡的',
+                 '隨便哪個都好啦',
+                 '連這種東西都不能決定，是不是不太應該啊',
+                 '沒事別叫我選東西好嗎，難道你們都是天秤座嗎（戰）',
+                 '不要把這種東西交給機器人決定比較好吧'];
+      Answer = rplyArr[Math.floor((Math.random() * (rplyArr.length))+ 0)];
     }
     return '我想想喔……我覺得，' + Answer + '。';
   }
- 
- //以下是幫眾限定的垃圾話
+   
+  //以下是幫眾限定的垃圾話
     let message = [
       {
         chack: ['泰','ㄩㄊ','太太'],
@@ -923,12 +925,13 @@ function YabasoReply(inputStr) {
           return message[i].text[Dice(message[i].text.length)-1];
         }
       }
+
     }
     
   //以下是運勢功能
   if(inputStr.match('運勢') != null){
     let rplyArr=['超大吉','大吉','大吉','中吉','中吉','中吉','小吉','小吉','小吉','小吉','凶','凶','凶','大凶','大凶','你還是，不要知道比較好','這應該不關我的事'];
-    return '運勢喔…我覺得，' + return rplyArr[Dice(rplyArr.length)-1] + '吧。';
+    return '運勢喔…我覺得，' + rplyArr[Math.floor((Math.random() * (rplyArr.length)) + 0)] + '吧。';
   } 
   
   //沒有觸發關鍵字則是這個
