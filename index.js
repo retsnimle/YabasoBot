@@ -86,6 +86,70 @@ function replyMsgToLine(rplyToken, rplyVal) {
 }
 
 
+//上面的部分呢，是LINE BOT能夠運轉，和伺服器的一些連結與認證有關。坦白說有很多部份我也不太確定是幹嘛用的，不要亂動比較安全。
+        
+//以下是這個機器人在處理指令的核心。
+function parseInput(inputStr) {
+        //此處傳入的變數inputStr是大家輸入的文字訊息。
+        //其實LineBot可以讀取的不只有文字訊息，貼圖、圖片等都可辨識。
+        //但有看得懂上半段的程式碼的人可能會注意到，我們擋掉了其他的種類。只留文字訊息。
+        //這是因為這個機器人的主要目的是擲骰，所以專注以處理文字指令為主。
+        //而這個函數最後return的也將會以文字訊息的方式回覆給使用者。
+        //回傳非文字訊息的方式，下文會另外敘述。
+  
+  
+        //這一段不要理他，因為我看不懂，總之留著。
+        console.log('InputStr: ' + inputStr);
+        _isNaN = function(obj) {
+          return isNaN(parseInt(obj));
+        }
+        
+        
+        
+        //以下這一串是一連串的判定，用來判斷是否有觸發條件的關鍵字。
+        
+        //這是我用來測試用的，可以刪掉。
+        if (inputStr.match(/^DvTest/) != null) return DvTest(inputStr) ;
+        else   
+          
+        //底下是做為一個擲骰機器人的核心功能。
+        //CoC7th系統的判定在此，關鍵字是「句首的cc」，在此的判定使用正則表達式。
+        //用 / / 框起來的部分就是正則表達式的範圍， ^ 代表句首，所以 ^cc 就代表句首的cc。
+        if (inputStr.toLowerCase().match(/^cc/)!= null) return CoC7th(inputStr.toLowerCase()) ;      
+        else
+          
+        //pbta系統判定在此，關鍵字是「句首的pb」。
+        if (inputStr.toLowerCase().match(/^pb/)!= null) return pbta(inputStr.toLowerCase()) ;      
+        else
+          
+        //通用擲骰判定在此，這邊的判定比較寬鬆。
+        //第一部分的 \w 代表「包括底線的任何單詞字元」，所以兩個部份的意涵就是：
+        //「不是全部都是空白或中文字，而且裡面含有d的訊息」都會觸發這個判定。
+        //為了要正確運作，剩下的判定式還有很多，寫在這邊太冗長所以擺在nomalDiceRoller裡面了。
+        if (inputStr.match(/\w/)!=null && inputStr.toLowerCase().match(/d/)!=null) {
+          return nomalDiceRoller(inputStr);
+        }
+
+        else 
+
+	//這幾個是偏向玩鬧型的功能，如果說只是要擲骰可以不管。
+        //鴨霸獸指令開始於此
+        if (inputStr.match('鴨霸獸') != null) return YabasoReply(inputStr) ;
+        else
+
+	//圖片訊息在此
+        if (inputStr.toLowerCase().match('.jpg') != null) return SendImg(rplyToken, inputStr) ;      
+        else
+          
+        //入幫測驗功能判定在此
+        if (inputStr.match('鴨霸幫入幫測驗') != null) return Yababang(inputStr) ;      
+        else return undefined;
+        
+}
+
+
+
+
 function SendImg(rplyToken, inputStr) {
      let message = [
   {
@@ -177,68 +241,6 @@ function SendMsg(rplyToken, rplyVal) {
     console.log('Request error: ' + e.message);
   })
   request.end(rplyJson);
-}
-
-
-//上面的部分呢，是LINE BOT能夠運轉，和伺服器的一些連結與認證有關。坦白說有很多部份我也不太確定是幹嘛用的，不要亂動比較安全。
-        
-//以下是這個機器人在處理指令的核心。
-function parseInput(inputStr) {
-        //此處傳入的變數inputStr是大家輸入的文字訊息。
-        //其實LineBot可以讀取的不只有文字訊息，貼圖、圖片等都可辨識。
-        //但有看得懂上半段的程式碼的人可能會注意到，我們擋掉了其他的種類。只留文字訊息。
-        //這是因為這個機器人的主要目的是擲骰，所以專注以處理文字指令為主。
-        //而這個函數最後return的也將會以文字訊息的方式回覆給使用者。
-        //回傳非文字訊息的方式，下文會另外敘述。
-  
-  
-        //這一段不要理他，因為我看不懂，總之留著。
-        console.log('InputStr: ' + inputStr);
-        _isNaN = function(obj) {
-          return isNaN(parseInt(obj));
-        }
-        
-        
-        
-        //以下這一串是一連串的判定，用來判斷是否有觸發條件的關鍵字。
-        
-        //這是我用來測試用的，可以刪掉。
-        if (inputStr.match(/^DvTest/) != null) return DvTest(inputStr) ;
-        else   
-          
-        //底下是做為一個擲骰機器人的核心功能。
-        //CoC7th系統的判定在此，關鍵字是「句首的cc」，在此的判定使用正則表達式。
-        //用 / / 框起來的部分就是正則表達式的範圍， ^ 代表句首，所以 ^cc 就代表句首的cc。
-        if (inputStr.toLowerCase().match(/^cc/)!= null) return CoC7th(inputStr.toLowerCase()) ;      
-        else
-          
-        //pbta系統判定在此，關鍵字是「句首的pb」。
-        if (inputStr.toLowerCase().match(/^pb/)!= null) return pbta(inputStr.toLowerCase()) ;      
-        else
-          
-        //通用擲骰判定在此，這邊的判定比較寬鬆。
-        //第一部分的 \w 代表「包括底線的任何單詞字元」，所以兩個部份的意涵就是：
-        //「不是全部都是空白或中文字，而且裡面含有d的訊息」都會觸發這個判定。
-        //為了要正確運作，剩下的判定式還有很多，寫在這邊太冗長所以擺在nomalDiceRoller裡面了。
-        if (inputStr.match(/\w/)!=null && inputStr.toLowerCase().match(/d/)!=null) {
-          return nomalDiceRoller(inputStr);
-        }
-
-        else 
-
-	//這幾個是偏向玩鬧型的功能，如果說只是要擲骰可以不管。
-        //鴨霸獸指令開始於此
-        if (inputStr.match('鴨霸獸') != null) return YabasoReply(inputStr) ;
-        else
-
-	//圖片訊息在此
-        if (inputStr.toLowerCase().match('.jpg') != null) return SendImg(rplyToken, inputStr) ;      
-        else
-          
-        //入幫測驗功能判定在此
-        if (inputStr.match('鴨霸幫入幫測驗') != null) return Yababang(inputStr) ;      
-        else return undefined;
-        
 }
 
 
