@@ -104,11 +104,7 @@ function parseInput(inputStr) {
         
         
         //以下這一串是一連串的判定，用來判斷是否有觸發條件的關鍵字。
-        
-        //這是我用來測試用的，可以刪掉。
-        if (inputStr.match(/^DvTest/) != null) return DvTest(inputStr) ;
-        else
-        
+       
         //這幾個是偏向玩鬧型的功能，如果說只是要擲骰可以不管。
         //鴨霸獸指令開始於此
         if (inputStr.match('鴨霸獸') != null) return YabasoReply(inputStr) ;
@@ -147,30 +143,9 @@ function Dice(diceSided){
   //然後我們將它乘上diceSided，就是我們指定的骰子面數。以剛剛的六面骰為例，它會產生一個0~6之間的隨機數（不包含6）。
   //接下來就要說 Math.floor() 了，它會把數字的小數部分無條件捨棄掉，變成整數。所以把上面那個餵他之後就會出現0~5這六個整數。
   //但是我們要的是1~6不是0~5，所以要找個地方+1，大概就是這樣啦。
-  return Math.floor((Math.random() * diceSided) + 1)
+  return Math.floor((Math.random() * diceSided) + 1);
 }              
         
-
-function DvTest(inputStr){
-  let rePly = '開發者測試：\n';
-  
-  //let testStr = '2d10+10';
-  //rePly=rePly + DiceCal(testStr).eq + '\n' + DiceCal(testStr).eqStr ;
-  let i =1;
-  let testStr = '200 =1.2a3456';
-  //rePly=rePly + parseInt(testStr.split('=',2)[1]) ;
-  return rePly + (i+1+2);  
-  
-  let testValue = inputStr.toLowerCase().split(' ',2)[1];
-  let a ;
-  let b = 3;
-  //if,else簡寫
-  // (布林值)?為真時的狀況:不為真時狀況;
-  (testValue > 5)?a=5:a=10,b=20;
-  rePly = rePly + a +':'+ b;
-  return rePly;
-
-}
 
 //這個就是通用擲骰啦！
 //但這是一個很大的東西，我拆成幾個不同的部分。
