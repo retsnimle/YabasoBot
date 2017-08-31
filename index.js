@@ -684,8 +684,8 @@ function CoC7th(inputStr){
       tempStr = tempStr + '、' + OtherRoll;
     }
     let countArr = tempStr.split('、');       
-    if (BPDice>0) finalRoll = Math.min(...countArr),ReStr = 'CoC7th擲骰【獎勵骰取高】：\n(1D100<=' + chack + ') → ';
-    if (BPDice<0) finalRoll = Math.max(...countArr),ReStr = 'CoC7th擲骰【懲罰骰取低】：\n(1D100<=' + chack + ') → ';
+    if (BPDice>0) finalRoll = Math.min(...countArr),ReStr = 'CoC7th擲骰【獎勵骰取低】：\n(1D100<=' + chack + ') → ';
+    if (BPDice<0) finalRoll = Math.max(...countArr),ReStr = 'CoC7th擲骰【懲罰骰取高】：\n(1D100<=' + chack + ') → ';
    
     ReStr = ReStr + tempStr + ' \n→ ';      
   }  
