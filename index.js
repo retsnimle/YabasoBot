@@ -83,113 +83,7 @@ function replyMsgToLine(rplyToken, rplyVal) {
   })
   request.end(rplyJson);
 }
-
 //上面的部分呢，是LINE BOT能夠運轉，和伺服器的一些連結與認證有關。坦白說有很多部份我也不太確定是幹嘛用的，不要亂動比較安全。
-
-
-//這部分是傳送文字訊息之外的函數，可以自己研究
-//泛用傳送訊息
-function SendMsg(rplyToken, rplyVal) {
-  let rplyObj = {
-    replyToken: rplyToken,
-    messages: rplyVal
-  }
-
-  let rplyJson = JSON.stringify(rplyObj); 
-  
-  var request = https.request(options, function(response) {
-    console.log('Status: ' + response.statusCode);
-    console.log('Headers: ' + JSON.stringify(response.headers));
-    response.setEncoding('utf8');
-    response.on('data', function(body) {
-      console.log(body); 
-    });
-  });
-  request.on('error', function(e) {
-    console.log('Request error: ' + e.message);
-  })
-  request.end(rplyJson);
-}
-
-
-//傳送圖片訊息
-function SendImg(rplyToken, inputStr) {
-     let message = [
-  {
-    chack: ['想相離家出走','阿想離家出走'],
-    img: ['https://i.imgur.com/FItqGSH.jpg']
-    //Pimg: ['https://i.imgur.com/FItqGSH.jpg']
-  },
-  {
-    chack: ['我什麼都沒有'],
-    img: ['https://i.imgur.com/k4QE5Py.png']
-    //Pimg: ['https://i.imgur.com/k4QE5Py.png']
-  },
-  {
-    chack: ['大家的小三','大家的小3'],
-    img: ['https://i.imgur.com/dKW2EJb.png']
-    //Pimg: ['https://i.imgur.com/dKW2EJb.png']
-  },
-  {
-    chack: ['問號黑人','黑人問號','尼哥問號','問號尼哥','尼格問號','問號尼格'],
-    img: ['https://i.imgur.com/cUR20OZ.png']
-  },
-  {
-    chack: ['貴圈真亂'],
-    img: ['https://i.imgur.com/PalRocR.png']
-  },
-  {
-    chack: ['怕'],
-    img: ['https://i.imgur.com/qXGsztE.png']
-  },
-  {
-    chack: ['你要享受這個過程','妳要享受這個過程'],
-    img: ['https://i.imgur.com/mt7NVzr.png','https://i.imgur.com/v094wOd.png','https://i.imgur.com/F5RfDW2.png','https://i.imgur.com/jWm6f6z.png']
-  },
-  {
-    chack: ['我覺得不行'],
-    img: ['https://i.imgur.com/zXvsvJf.png','https://i.imgur.com/U1AK4kL.png','https://i.imgur.com/4TClOgY.png']
-  },
-  {
-    chack: ['我覺得可以','我覺得其實可以'],
-    img: ['https://i.imgur.com/K5WsXso.png']
-  },
-  {
-    chack: ['警察','就是這個人'],
-    img: ['https://i.imgur.com/7BTPpPQ.png','https://i.imgur.com/nweWacp.png','https://i.imgur.com/j0hIscH.png','https://i.imgur.com/9BDCkJr.png','https://i.imgur.com/2ZiVw9g.png']
-  }
-
-  ]
-  
-  for ( i=0 ; i < message.length ; i ++){
-    for ( j=0 ; j < message[i].chack.length ; j ++){
-      if (inputStr.toLowerCase().match(message[i].chack[j]) != null) {
-         let rplyVal = [
-           {
-            type: "image", 
-            originalContentUrl: message[i].img[Dice(message[i].img.length)-1], 
-            //previewImageUrl: message[i].Pimg[Dice(message[i].Pimg.length)-1]
-            previewImageUrl: message[i].img[Dice(message[i].img.length)-1]
-           }
-         ]
-         SendMsg(rplyToken, rplyVal);
-         return undefined;
-      }
-    }
-    
-  }
-  
-  
-
- return undefined;
-}
-
-
-
-
-
-
-
         
 //以下是這個機器人在處理指令的核心。
 function parseInput(inputStr) {
@@ -206,9 +100,10 @@ function parseInput(inputStr) {
         _isNaN = function(obj) {
           return isNaN(parseInt(obj));
         }
-               
         
-	//以下這一串是一連串的判定，用來判斷是否有觸發條件的關鍵字。
+        
+        
+        //以下這一串是一連串的判定，用來判斷是否有觸發條件的關鍵字。
         
         //這是我用來測試用的，可以刪掉。
         if (inputStr.match(/^DvTest/) != null) return DvTest(inputStr) ;
@@ -221,10 +116,6 @@ function parseInput(inputStr) {
           
         //入幫測驗功能判定在此
         if (inputStr.match('鴨霸幫入幫測驗') != null) return Yababang(inputStr) ;      
-        else
-          
-        //圖片訊息在此
-        if (inputStr.toLowerCase().match('.jpg') != null) return SendImg(rplyToken, inputStr) ;
         else
           
         //底下就是做為一個擲骰機器人的核心功能。
@@ -245,10 +136,20 @@ function parseInput(inputStr) {
           return nomalDiceRoller(inputStr);
         }
 
-
         else return undefined;
+        
 }
 
+//這可能是整個程式中最重要的一個函數。它是用來做「擲骰」的最基本部份，會一直被叫出來用。
+//它的功能是，打 Dice(6) ，就會像骰六面骰一樣骰出一個介於1和6間的整數。        
+function Dice(diceSided){
+  //首先，Math.random()是一個製造亂數的函數，它會產生一個介於0～1的隨機數（不包含1）
+  //然後我們將它乘上diceSided，就是我們指定的骰子面數。以剛剛的六面骰為例，它會產生一個0~6之間的隨機數（不包含6）。
+  //接下來就要說 Math.floor() 了，它會把數字的小數部分無條件捨棄掉，變成整數。所以把上面那個餵他之後就會出現0~5這六個整數。
+  //但是我們要的是1~6不是0~5，所以要找個地方+1，大概就是這樣啦。
+  return Math.floor((Math.random() * diceSided) + 1)
+}              
+        
 
 function DvTest(inputStr){
   let rePly = '開發者測試：\n';
@@ -270,17 +171,6 @@ function DvTest(inputStr){
   return rePly;
 
 }
-
-//這可能是整個程式中最重要的一個函數。它是用來做「擲骰」的最基本部份，會一直被叫出來用。
-//它的功能是，打 Dice(6) ，就會像骰六面骰一樣骰出一個介於1和6間的整數。     
-   
-function Dice(diceSided){
-  //首先，Math.random()是一個製造亂數的函數，它會產生一個介於0～1的隨機數（不包含1）
-  //然後我們將它乘上diceSided，就是我們指定的骰子面數。以剛剛的六面骰為例，它會產生一個0~6之間的隨機數（不包含6）。
-  //接下來就要說 Math.floor() 了，它會把數字的小數部分無條件捨棄掉，變成整數。所以把上面那個餵他之後就會出現0~5這六個整數。
-  //但是我們要的是1~6不是0~5，所以要找個地方+1，大概就是這樣啦。
-  return Math.floor((Math.random() * diceSided) + 1)
-}            
 
 //這個就是通用擲骰啦！
 //但這是一個很大的東西，我拆成幾個不同的部分。
@@ -396,6 +286,8 @@ function DiceCal(inputStr){
   }
   
   return Final;
+
+
 }        
 
 //用來把d給展開成算式的函數
@@ -415,8 +307,8 @@ function RollDice(inputStr){
   finalStr = finalStr.substring(0, finalStr.length - 1) + ')';
   return finalStr;
 }
-                                                                     
 
+        
 //PBTA判定在這裡
 function pbta(inputStr){
   
@@ -448,110 +340,6 @@ function pbta(inputStr){
 
 }
         
-
-
-
-
-//這裡是cc指令，也就是CoC的主要擲骰控制位置。
-//這邊的程式碼沒有那麼複雜，所以應該不會講得那麼詳細，可以自己慢慢研究，不難懂的。
-function CoC7th(inputStr){
-  
-  //先判斷是不是要創角
-  if (inputStr.toLowerCase().match('創角') != null||inputStr.toLowerCase().match('crt') != null)
-    return ccCreate(inputStr);
-  
-  //隨機產生角色背景
-  if (inputStr.toLowerCase().match('bg') != null) return ccbg();
-  
-  //接下來就是主要的擲骰部分啦！
-  //如果不是正確的格式，直接跳出
-  if(inputStr.match('<=') == null && inputStr.match('cc>') == null ) return undefined;
-  
-  //記錄檢定要求值，簡單來說就是取 = 後的「整數」部分，parseInt就是強制取整
-  let chack = parseInt(inputStr.split('=',2)[1]) ;
-  
-  //設定回傳訊息
-  let ReStr = 'CoC7th擲骰：\n(1D100<=' + chack + ') → ';
-
-  //先骰兩次十面骰作為起始值。為什麼要這樣呢，因為獎懲骰的部分十面骰需要重骰，這樣到時候會簡單一點。
-  let TenRoll = Dice(10) ;
-  let OneRoll = Dice(10) - 1;
-
-  //把剛剛的十面骰組合成百面
-  let firstRoll = TenRoll*10 + OneRoll;
-  if (firstRoll > 100) firstRoll = firstRoll - 100;  
-
-          
-  //先設定最終結果等於第一次擲骰
-  let finalRoll = firstRoll;
-          
-
-  //判斷是否為成長骰
-  if(inputStr.match(/^cc>\d+/)!=null){
-    chack = parseInt(inputStr.split('>',2)[1]) ;
-    if (finalRoll>chack||finalRoll>95) {
-      let plus =  Dice(10);
-      ReStr = 'CoC7th擲骰【技能成長】：\n(1D100>' + chack + ') → ' + finalRoll + ' → 成功成長' + Dice(10) +'點\n最終值為：'+ chack + '+' + plus +'='+ (chack + plus);
-      return ReStr;
-    }
-    else if (finalRoll<=chack) {
-      ReStr = 'CoC7th擲骰【技能成長】：\n(1D100>' + chack + ') → ' + finalRoll + ' → 沒有成長';
-      return ReStr;
-    }
-    else return undefined;
-  }
-
-
-  //判斷是否為獎懲骰
-  let BPDice = null;
-  
-  //if(inputStr.match(/^cc\(-?[12]\)/)!=null) BPDice = parseInt(inputStr.split('(',2)[1]) ;
-  if(inputStr.match(/^cc\(-?\d+\)/)!=null) BPDice = parseInt(inputStr.split('(',2)[1]);
-  
-  if(Math.abs(BPDice) != 1 && Math.abs(BPDice) != 2 && BPDice != null) return 'CoC7th的獎懲骰，允許的範圍是一到兩顆哦。';
-  
-  //如果是獎勵骰
-  if(BPDice != null){  
-    let tempStr = firstRoll;
-    for (let i = 1; i <= Math.abs(BPDice); i++ ){
-      let OtherTenRoll = Dice(10);
-      let OtherRoll = OtherTenRoll.toString() + OneRoll.toString();
-      
-      if (OtherRoll > 100) OtherRoll = parseInt(OtherRoll) - 100;  
-      
-      tempStr = tempStr + '、' + OtherRoll;
-    }
-    let countArr = tempStr.split('、');       
-    if (BPDice>0) finalRoll = Math.min(...countArr),ReStr = 'CoC7th擲骰【獎勵骰取高】：\n(1D100<=' + chack + ') → ';
-    if (BPDice<0) finalRoll = Math.max(...countArr),ReStr = 'CoC7th擲骰【懲罰骰取低】：\n(1D100<=' + chack + ') → ';
-   
-    ReStr = ReStr + tempStr + ' \n→ ';      
-  }  
-
-          //結果判定
-          if (finalRoll == 1) ReStr = ReStr + finalRoll + ' → 恭喜！大成功！';
-          else
-            if (finalRoll == 100) ReStr = ReStr + finalRoll + ' → 啊！大失敗！';
-          else
-            if (finalRoll <= 99 && finalRoll > 95 && chack < 50) ReStr = ReStr + finalRoll + ' → 啊！大失敗！';
-          else
-            if (finalRoll <= chack/5) ReStr = ReStr + finalRoll + ' → 極限成功';
-          else
-            if (finalRoll <= chack/2) ReStr = ReStr + finalRoll + ' → 困難成功';
-          else
-            if (finalRoll <= chack) ReStr = ReStr + finalRoll + ' → 通常成功';
-          else ReStr = ReStr + finalRoll + ' → 失敗' ;
-
-          //浮動大失敗運算
-          if (finalRoll <= 99 && finalRoll > 95 && chack >= 50 ){
-            if(chack/2 < 50) ReStr = ReStr + '\n（若要求困難成功則為大失敗）';
-            else
-              if(chack/5 < 50) ReStr = ReStr + '\n（若要求極限成功則為大失敗）';
-          }  
-          return ReStr;
-}
-
-
 function ccCreate(inputStr){
   //大致上的精神是，後面有數字就當作是有年齡調整的傳統創角，沒有的話就是常見的房規創角
   //如果最後面不是數字，就當作是常見的房規創角
@@ -715,6 +503,106 @@ function ccbg(){
 
   return 'CoC7th背景描述生成器\n（僅供娛樂用，不具實際參考價值）\n==\n調查員是一個' + bg.PD[Dice(bg.PD.length)-1] + '人。\n【信念】：說到這個人，他' + bg.IB[Dice(bg.IB.length)-1] + '。\n【重要之人】：對他來說，最重要的人是' + bg.SP[Dice(bg.SP.length )-1] + '，這個人對他來說之所以重要，是因為' + bg.SPW[Dice(bg.SPW.length )-1] + '。\n【意義非凡之地】：對他而言，最重要的地點是' + bg.ML[Dice(bg.ML.length )-1] + '。\n【寶貴之物】：他最寶貴的東西就是'+ bg.TP[Dice(bg.TP.length )-1] + '。\n【特徵】：總括來說，調查員是一個' + bg.T[Dice(bg.T.length)-1] + '。';
 
+}
+
+        
+//這裡是cc指令，也就是CoC的主要擲骰控制位置。
+//這邊的程式碼沒有那麼複雜，所以應該不會講得那麼詳細，可以自己慢慢研究，不難懂的。
+function CoC7th(inputStr){
+  
+  //先判斷是不是要創角
+  if (inputStr.toLowerCase().match('創角') != null||inputStr.toLowerCase().match('crt') != null)
+    return ccCreate(inputStr);
+  
+  //隨機產生角色背景
+  if (inputStr.toLowerCase().match('bg') != null) return ccbg();
+  
+  //接下來就是主要的擲骰部分啦！
+  //如果不是正確的格式，直接跳出
+  if(inputStr.match('<=') == null && inputStr.match('cc>') == null ) return undefined;
+  
+  //記錄檢定要求值，簡單來說就是取 = 後的「整數」部分，parseInt就是強制取整
+  let chack = parseInt(inputStr.split('=',2)[1]) ;
+  
+  //設定回傳訊息
+  let ReStr = 'CoC7th擲骰：\n(1D100<=' + chack + ') → ';
+
+  //先骰兩次十面骰作為起始值。為什麼要這樣呢，因為獎懲骰的部分十面骰需要重骰，這樣到時候會簡單一點。
+  let TenRoll = Dice(10) ;
+  let OneRoll = Dice(10) - 1;
+
+  //把剛剛的十面骰組合成百面
+  let firstRoll = TenRoll*10 + OneRoll;
+  if (firstRoll > 100) firstRoll = firstRoll - 100;  
+
+          
+  //先設定最終結果等於第一次擲骰
+  let finalRoll = firstRoll;
+          
+
+  //判斷是否為成長骰
+  if(inputStr.match(/^cc>\d+/)!=null){
+    chack = parseInt(inputStr.split('>',2)[1]) ;
+    if (finalRoll>chack||finalRoll>95) {
+      let plus =  Dice(10);
+      ReStr = 'CoC7th擲骰【技能成長】：\n(1D100>' + chack + ') → ' + finalRoll + ' → 成功成長' + Dice(10) +'點\n最終值為：'+ chack + '+' + plus +'='+ (chack + plus);
+      return ReStr;
+    }
+    else if (finalRoll<=chack) {
+      ReStr = 'CoC7th擲骰【技能成長】：\n(1D100>' + chack + ') → ' + finalRoll + ' → 沒有成長';
+      return ReStr;
+    }
+    else return undefined;
+  }
+
+
+  //判斷是否為獎懲骰
+  let BPDice = null;
+  
+  //if(inputStr.match(/^cc\(-?[12]\)/)!=null) BPDice = parseInt(inputStr.split('(',2)[1]) ;
+  if(inputStr.match(/^cc\(-?\d+\)/)!=null) BPDice = parseInt(inputStr.split('(',2)[1]);
+  
+  if(Math.abs(BPDice) != 1 && Math.abs(BPDice) != 2 && BPDice != null) return 'CoC7th的獎懲骰，允許的範圍是一到兩顆哦。';
+  
+  //如果是獎勵骰
+  if(BPDice != null){  
+    let tempStr = firstRoll;
+    for (let i = 1; i <= Math.abs(BPDice); i++ ){
+      let OtherTenRoll = Dice(10);
+      let OtherRoll = OtherTenRoll.toString() + OneRoll.toString();
+      
+      if (OtherRoll > 100) OtherRoll = parseInt(OtherRoll) - 100;  
+      
+      tempStr = tempStr + '、' + OtherRoll;
+    }
+    let countArr = tempStr.split('、');       
+    if (BPDice>0) finalRoll = Math.min(...countArr),ReStr = 'CoC7th擲骰【獎勵骰取高】：\n(1D100<=' + chack + ') → ';
+    if (BPDice<0) finalRoll = Math.max(...countArr),ReStr = 'CoC7th擲骰【懲罰骰取低】：\n(1D100<=' + chack + ') → ';
+   
+    ReStr = ReStr + tempStr + ' \n→ ';      
+  }  
+
+          //結果判定
+          if (finalRoll == 1) ReStr = ReStr + finalRoll + ' → 恭喜！大成功！';
+          else
+            if (finalRoll == 100) ReStr = ReStr + finalRoll + ' → 啊！大失敗！';
+          else
+            if (finalRoll <= 99 && finalRoll > 95 && chack < 50) ReStr = ReStr + finalRoll + ' → 啊！大失敗！';
+          else
+            if (finalRoll <= chack/5) ReStr = ReStr + finalRoll + ' → 極限成功';
+          else
+            if (finalRoll <= chack/2) ReStr = ReStr + finalRoll + ' → 困難成功';
+          else
+            if (finalRoll <= chack) ReStr = ReStr + finalRoll + ' → 通常成功';
+          else ReStr = ReStr + finalRoll + ' → 失敗' ;
+
+          //浮動大失敗運算
+          if (finalRoll <= 99 && finalRoll > 95 && chack >= 50 ){
+            if(chack/2 < 50) ReStr = ReStr + '\n（若要求困難成功則為大失敗）';
+            else
+              if(chack/5 < 50) ReStr = ReStr + '\n（若要求極限成功則為大失敗）';
+          }  
+          return ReStr;
 }
 
 
