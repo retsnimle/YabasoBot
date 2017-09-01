@@ -278,7 +278,7 @@ function DvTest(rplyToken, inputStr){
 	let fumble = [
 			{
 			type: "text",
-			messenge: rePly
+			text: rePly
 			},
 			{
 			type: "image",
@@ -756,7 +756,7 @@ function CoC7th(rplyToken, inputStr){
 		let fumble = [
 			{
 			type: 'text',
-			messenge: ReStr
+			text: ReStr
 			},
 			{
 			type: 'image',
