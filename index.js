@@ -753,7 +753,7 @@ function CoC7th(rplyToken, inputStr){
           }  
 	
 	if (ReStr.match('啊！大失敗')!= null){
-	let fumbleImgArr =['https://i.imgur.com/ju9UQzA.png','https://i.imgur.com/M3meWXu.png','https://i.imgur.com/nWxGZyz.png','https://i.imgur.com/FnmSMWq.png','https://i.imgur.com/cq0WGxH.png'];
+	let fumbleImgArr =['https://i.imgur.com/ju9UQzA.png','https://i.imgur.com/M3meWXu.png','https://i.imgur.com/nWxGZyz.png','https://i.imgur.com/cq0WGxH.png'];
 	let fumbleImg = fumbleImgArr[Dice(fumbleImgArr.length)-1];
 	let fumble = [
 			{
