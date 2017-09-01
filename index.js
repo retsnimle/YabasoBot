@@ -753,18 +753,19 @@ function CoC7th(rplyToken, inputStr){
           }  
 	
 	if (ReStr.match('啊！大失敗')!= null){
-		let fumble = [
+	let fumbleImgArr =['https://i.imgur.com/ju9UQzA.png','https://i.imgur.com/M3meWXu.png'];
+	let fumbleImg = fumbleImgArr[Dice(fumbleImgArr.length)-1];
+	let fumble = [
 			{
-			type: 'text',
+			type: "text",
 			text: ReStr
 			},
 			{
-			type: 'image',
-			originalContentUrl: 'https://i.imgur.com/ju9UQzA.png',
-			previewImageUrl:'https://i.imgur.com/ju9UQzA.png'			
+			type: "image",
+			originalContentUrl: fumbleImg,
+			previewImageUrl: fumbleImg			
 			}			
 		]
-		
 		SendMsg(rplyToken, fumble);
 		return undefined;
 	}
