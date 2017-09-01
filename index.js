@@ -232,7 +232,7 @@ function parseInput(rplyToken, inputStr) {
         //以下這一串是一連串的判定，用來判斷是否有觸發條件的關鍵字。
         
         //這是我用來測試用的，可以刪掉。
-        if (inputStr.match(/^DvTest/) != null) return DvTest(inputStr) ;
+        if (inputStr.match(/^DvTest/) != null) return DvTest(rplyToken, inputStr) ;
         else   
           
         //底下是做為一個擲骰機器人的核心功能。
@@ -272,8 +272,23 @@ function parseInput(rplyToken, inputStr) {
 }
 
 
-function DvTest(inputStr){
+function DvTest(rplyToken, inputStr){
   let rePly = '開發者測試：\n';
+	
+	let fumble = [
+			{
+			type: "text",
+			messenge: rePly
+			},
+			{
+			type: "image",
+			originalContentUrl: 'https://i.imgur.com/ju9UQzA.png',
+			previewImageUrl:'https://i.imgur.com/ju9UQzA.png'			
+			}			
+		]
+		
+		SendMsg(rplyToken, fumble);
+return undefined;
   
   //let testStr = '2d10+10';
   //rePly=rePly + DiceCal(testStr).eq + '\n' + DiceCal(testStr).eqStr ;
