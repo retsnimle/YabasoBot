@@ -166,12 +166,12 @@ function SendImg(rplyToken, inputStr) {
   for ( i=0 ; i < message.length ; i ++){
     for ( j=0 ; j < message[i].chack.length ; j ++){
       if (inputStr.toLowerCase().match(message[i].chack[j]) != null) {
+	 let tempImgUrl = message[i].img[Dice(message[i].img.length)-1];
          let rplyVal = [
            {
             type: "image", 
-            originalContentUrl: message[i].img[Dice(message[i].img.length)-1], 
-            //previewImageUrl: message[i].Pimg[Dice(message[i].Pimg.length)-1]
-            previewImageUrl: message[i].img[Dice(message[i].img.length)-1]
+            originalContentUrl: tempImgUrl, 
+            previewImageUrl: tempImgUrl
            }
          ]
          SendMsg(rplyToken, rplyVal);
@@ -274,7 +274,8 @@ function parseInput(rplyToken, inputStr) {
 
 function DvTest(rplyToken, inputStr){
   let rePly = '開發者測試：\n';
-	
+	let fumbleImgArr =['https://i.imgur.com/ju9UQzA.png','https://i.imgur.com/M3meWXu.png'];
+	let fumbleImg = fumbleImgArr[Dice(fumbleImgArr.length)-1];
 	let fumble = [
 			{
 			type: "text",
@@ -282,11 +283,10 @@ function DvTest(rplyToken, inputStr){
 			},
 			{
 			type: "image",
-			originalContentUrl: 'https://i.imgur.com/ju9UQzA.png',
-			previewImageUrl:'https://i.imgur.com/ju9UQzA.png'			
+			originalContentUrl: fumbleImg,
+			previewImageUrl:fumbleImg			
 			}			
 		]
-		
 		SendMsg(rplyToken, fumble);
 return undefined;
   
