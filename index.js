@@ -14,10 +14,10 @@ var options = {
     'Content-Type': 'application/json',
 
 	//新無限巴獸
-    'Authorization': 'Bearer N5nOPFYb0S61vE2By6PBSDZkHvh0ssvnHuC3sYugu26BiZjsDLv1lqK2XSBsOhVVUl4hoAKu1b9vBU6X9bMVvWcw9ENcx/WySkN7Rsf8oaJuaUPvzS2aJyMom7Ww34LYQEj6YH4p1/JvM5HW0MyddAdB04t89/1O/w1cDnyilFU='
+    //'Authorization': 'Bearer N5nOPFYb0S61vE2By6PBSDZkHvh0ssvnHuC3sYugu26BiZjsDLv1lqK2XSBsOhVVUl4hoAKu1b9vBU6X9bMVvWcw9ENcx/WySkN7Rsf8oaJuaUPvzS2aJyMom7Ww34LYQEj6YH4p1/JvM5HW0MyddAdB04t89/1O/w1cDnyilFU='
 
 	//封測版巴獸
-    //'Authorization': 'Bearer ryNqwHMHp/gYIFG1kZj3ocY3vf6iLgppFdwMh7354f83faZJW5Z5W8vzPRZuf2+jqWtr1mFQPbTNN2Mnwg8IeSksaSwIZntZJMDuC+wI3rzrGP026nY+EURjb5vt3r6ulYg9eF3fCwfZGwZQHrKW3wdB04t89/1O/w1cDnyilFU='
+    'Authorization': 'Bearer ryNqwHMHp/gYIFG1kZj3ocY3vf6iLgppFdwMh7354f83faZJW5Z5W8vzPRZuf2+jqWtr1mFQPbTNN2Mnwg8IeSksaSwIZntZJMDuC+wI3rzrGP026nY+EURjb5vt3r6ulYg9eF3fCwfZGwZQHrKW3wdB04t89/1O/w1cDnyilFU='
 
     
   }
@@ -274,37 +274,18 @@ function parseInput(rplyToken, inputStr) {
 
 function DvTest(rplyToken, inputStr){
   let rePly = '開發者測試：\n';
-	let fumbleImgArr =['https://i.imgur.com/ju9UQzA.png','https://i.imgur.com/M3meWXu.png'];
-	let fumbleImg = fumbleImgArr[Dice(fumbleImgArr.length)-1];
-	let fumble = [
-			{
-			type: "text",
-			text: rePly
-			},
-			{
-			type: "image",
-			originalContentUrl: fumbleImg,
-			previewImageUrl:fumbleImg			
-			}			
-		]
-		SendMsg(rplyToken, fumble);
-return undefined;
+ var parameter = {
+    url: 'https://docs.google.com/spreadsheets/d/1Y7qMkja1oTxsRWjk6IJNdkyqYJY6KKMCYLHgJpfXWLk/edit#gid=0',
+    name: '工作表1',
+    startRow: 1,
+    startColumn: 1
+  };
   
-  //let testStr = '2d10+10';
-  //rePly=rePly + DiceCal(testStr).eq + '\n' + DiceCal(testStr).eqStr ;
-  let i =1;
-  let testStr = '200 =1.2a3456';
-  //rePly=rePly + parseInt(testStr.split('=',2)[1]) ;
-  return rePly + (i+1+2);  
+  $.get('https://script.googleusercontent.com/macros/echo?user_content_key=O0Hqa4i5PMg4lmu21yLqtMwkjzpKqMsu-i9lo_VukEYKn6FCAmJETCBR9LoJhwspNibtlUaxhFL3fKc2mFh666mtlg9RPg3Cm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnB7xqMAzQNl622cUZycnI9UaxB54vRoIUv6leO4WCuNIyEl400tKkHg402xPe1a6KlHGhW1R_VxM&lib=MYT57cRSWjxaozmh-4wcOAiyaU3jY4DtZ', parameter, function(data) {
+    rePly = data;
+  });
   
-  let testValue = inputStr.toLowerCase().split(' ',2)[1];
-  let a ;
-  let b = 3;
-  //if,else簡寫
-  // (布林值)?為真時的狀況:不為真時狀況;
-  (testValue > 5)?a=5:a=10,b=20;
-  rePly = rePly + a +':'+ b;
-  return rePly;
+  return rePly 
 
 }
         
