@@ -14,10 +14,10 @@ var options = {
     'Content-Type': 'application/json',
 
 	//新無限巴獸
-    //'Authorization': 'Bearer N5nOPFYb0S61vE2By6PBSDZkHvh0ssvnHuC3sYugu26BiZjsDLv1lqK2XSBsOhVVUl4hoAKu1b9vBU6X9bMVvWcw9ENcx/WySkN7Rsf8oaJuaUPvzS2aJyMom7Ww34LYQEj6YH4p1/JvM5HW0MyddAdB04t89/1O/w1cDnyilFU='
+    'Authorization': 'Bearer N5nOPFYb0S61vE2By6PBSDZkHvh0ssvnHuC3sYugu26BiZjsDLv1lqK2XSBsOhVVUl4hoAKu1b9vBU6X9bMVvWcw9ENcx/WySkN7Rsf8oaJuaUPvzS2aJyMom7Ww34LYQEj6YH4p1/JvM5HW0MyddAdB04t89/1O/w1cDnyilFU='
 
 	//封測版巴獸
-    'Authorization': 'Bearer ryNqwHMHp/gYIFG1kZj3ocY3vf6iLgppFdwMh7354f83faZJW5Z5W8vzPRZuf2+jqWtr1mFQPbTNN2Mnwg8IeSksaSwIZntZJMDuC+wI3rzrGP026nY+EURjb5vt3r6ulYg9eF3fCwfZGwZQHrKW3wdB04t89/1O/w1cDnyilFU='
+    //'Authorization': 'Bearer ryNqwHMHp/gYIFG1kZj3ocY3vf6iLgppFdwMh7354f83faZJW5Z5W8vzPRZuf2+jqWtr1mFQPbTNN2Mnwg8IeSksaSwIZntZJMDuC+wI3rzrGP026nY+EURjb5vt3r6ulYg9eF3fCwfZGwZQHrKW3wdB04t89/1O/w1cDnyilFU='
 
     
   }
@@ -272,20 +272,26 @@ function parseInput(rplyToken, inputStr) {
 }
 
 
-function DvTest(rplyToken, inputStr){
+
+function DvTest(inputStr){
   let rePly = '開發者測試：\n';
- var parameter = {
-    url: 'https://docs.google.com/spreadsheets/d/1Y7qMkja1oTxsRWjk6IJNdkyqYJY6KKMCYLHgJpfXWLk/edit#gid=0',
-    name: '工作表1',
-    startRow: 1,
-    startColumn: 1
-  };
+  var requestURL = 'https://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json';
+  var request = new XMLHttpRequest();
   
-  $.get('https://script.googleusercontent.com/macros/echo?user_content_key=O0Hqa4i5PMg4lmu21yLqtMwkjzpKqMsu-i9lo_VukEYKn6FCAmJETCBR9LoJhwspNibtlUaxhFL3fKc2mFh666mtlg9RPg3Cm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnB7xqMAzQNl622cUZycnI9UaxB54vRoIUv6leO4WCuNIyEl400tKkHg402xPe1a6KlHGhW1R_VxM&lib=MYT57cRSWjxaozmh-4wcOAiyaU3jY4DtZ', parameter, function(data) {
-    rePly = data;
-  });
+  var superHeroes ={
+    "squadName" : "SAD"  
+  }
+
+  request.open('GET', requestURL);
+  request.responseType = 'json';
+  request.send();
+  request.onload = function() {
+    superHeroes = request.response;
+    rePly = rePly + superHeroes.squadName;
+    
+  }
   
-  return rePly 
+  return superHeroes.squadName;
 
 }
         
