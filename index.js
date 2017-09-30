@@ -228,7 +228,7 @@ function parseInput(rplyToken, inputStr) {
         }
         
         
-        
+        /*
         //以下這一串是一連串的判定，用來判斷是否有觸發條件的關鍵字。
         
         //這是我用來測試用的，可以刪掉。
@@ -267,7 +267,9 @@ function parseInput(rplyToken, inputStr) {
           return nomalDiceRoller(inputStr);
         }
 
-        else return undefined;
+        else */
+	
+	return "鴨霸獸已經無限期關機了嘎嘎。如果只是要擲骰可以試著用骰子狗（暫名）：https://line.me/R/ti/p/%40upl5593r \n嘖嘖，說到底鴨霸獸本來就是私群使用的機器人嘛，也許鴨霸獸還活在某個角落也說不定呢。";
         
 }
 
